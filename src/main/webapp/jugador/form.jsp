@@ -1,7 +1,12 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page import="com.example.demo.Dao.DaoSelecciones" %>
+<%
+    DaoSelecciones daoSeleccion = new DaoSelecciones();
+%>
+<% ArrayList<String> paises = (ArrayList<String>) request.getAttribute("paises"); %>
 <html>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'/>
@@ -13,23 +18,37 @@
             <div class="row mb-4">
                 <div class="col"></div>
                 <div class="col-md-6">
-                    <h1 class='mb-3'>Crear un Árbitro</h1>
-                    <form method="POST" action="<%=request.getContextPath()%>/ArbitroServlet?action=guardar">
+                    <h1 class='mb-3'>Crear un Jugador</h1>
+                    <form method="POST" action="<%=request.getContextPath()%>/JugadorServlet?action=guardar">
                         <div class="form-group">
                             <label>Nombre</label>
-                            <input type="text" class="form-control" name="nombre">
+                            <input type="text" class="form-control" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Edad</label>
+                            <input type="text" class="form-control" name="edad" pattern="\d+" title="Por favor, ingrese solo números." required>
+                            <div id="edadError" class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Posición</label>
+                            <input type="text" class="form-control" name="posicion" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Club</label>
+                            <input type="text" class="form-control" name="club" required>
                         </div>
                         <div class="form-group">
                             <label>País</label>
-                            <select name="pais" class="form-control">
-                                <% ArrayList<String> paises = (ArrayList<String>) request.getAttribute("paises"); %>
-                                <% for (String pais : paises) { %>
-                                <option value="<%= pais %>"><%= pais %></option>
+                            <select name="pais" class="form-control" required>
+                                <% for (String pais : paises) {
+                                    int idSeleccion = daoSeleccion.giveIdSeleccionbyName(pais);
+                                %>
+                                <option value="<%= idSeleccion %>"><%= pais %></option>
                                 <% } %>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="<%= request.getContextPath()%>/ArbitroServlet" class="btn btn-danger">Cancelar</a>
+                        <a href="<%= request.getContextPath()%>/JugadorServlet" class="btn btn-danger">Cancelar</a>
                     </form>
                 </div>
                 <div class="col"></div>

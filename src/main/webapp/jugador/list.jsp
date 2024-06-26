@@ -1,8 +1,9 @@
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.demo.Beans.Arbitro" %>
+<%@ page import="com.example.demo.Beans.Jugador" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%ArrayList<Arbitro>lista=(ArrayList<Arbitro>) request.getAttribute("listarArbitros");%>
+<%ArrayList<Jugador>lista=(ArrayList<Jugador>) request.getAttribute("listarJugadores");%>
 <!DOCTYPE html>
 
 <html>
@@ -16,51 +17,37 @@
         <div class='container'>
             <div class="row mb-5 mt-4">
                 <div class="col-lg-6">
-                    <h1 class=''>Lista de Árbitros</h1>
+                    <h1 class=''>Lista de Jugadores</h1>
                 </div>
                 <div class="col-lg-6 my-auto text-lg-right">
-                    <a href="<%= request.getContextPath()%>/ArbitroServlet?action=crear" class="btn btn-primary">Crear
-                        Árbitro</a>
+                    <a href="<%= request.getContextPath()%>/JugadorServlet?action=crear" class="btn btn-primary">Crear
+                        Jugador</a>
                 </div>
-                <form method="post" action="<%= request.getContextPath()%>/ArbitroServlet?action=buscar" class="row">
-                    <div class="col-lg-3">
 
-                        <select name="tipo" class="form-control">
-                            <% ArrayList<String> opciones = (ArrayList<String>) request.getAttribute("opciones"); %>
-                            <% for (String opcion : opciones) { %>
-                            <option value="<%= opcion %>"><%= opcion %></option>
-                            <% } %>
-                        </select>
-                    </div>
-                    <div class="col-lg-5">
-                        <input type="text" class="form-control" name="buscar">
-
-                    </div>
-                    <div class="col-lg-2">
-                        <button type="submit" class="btn btn-primary">Buscar</button>
-                    </div>
-                    <div class="col-lg-2">
-                        <a href="<%= request.getContextPath()%>/ArbitroServlet" class="btn btn-danger">Limpiar
-                            Búsqueda</a>
-                    </div>
-                </form>
             </div>
             <table class="table">
 
                 <tr>
                     <th>#</th>
                     <th>Nombre</th>
-                    <th>Pais</th>
+                    <th>Edad</th>
+                    <th>Posicion</th>
+                    <th>Club</th>
+                    <th>Seleccion</th>
+
                     <th></th>
                 </tr>
 
-                    <% for (Arbitro arbitro : lista){ %>
+                    <% for (Jugador jugador : lista){ %>
                 <tr>
-                    <td><%=arbitro.getIdArbitro()%></td>
-                    <td><%=arbitro.getNombre()%></td>
-                    <td><%=arbitro.getPais()%></td>
+                    <td><%=jugador.getIdJugadores()%></td>
+                    <td><%=jugador.getNombre()%></td>
+                    <td><%=jugador.getEdad()%></td>
+                    <td><%=jugador.getPosicion()%></td>
+                    <td><%=jugador.getClub()%></td>
+                    <td><%=jugador.getSn_idSeleccion()%></td>
                     <td>
-                        <a href="<%=request.getContextPath()%>/ArbitroServlet?action=borrar&id=<%=arbitro.getIdArbitro()%>">
+                        <a href="<%=request.getContextPath()%>/JugadorServlet?action=borrar&id=<%=jugador.getIdJugadores()%>">
                             Borrar
                         </a>
                     </td>

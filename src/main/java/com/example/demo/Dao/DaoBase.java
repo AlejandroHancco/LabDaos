@@ -10,7 +10,7 @@ public class DaoBase {
             Class.forName("com.mysql.cj.jdbc.Driver");
         }
         catch( ClassNotFoundException ex){ex.printStackTrace();}
-       String url = "jdbc:mysql://localhost:3306/lab9";
+       String url = "jdbc:mysql://localhost:3306/lab7";
        String user = "root";
        String password = "root";
        return DriverManager.getConnection(url, user, password);
