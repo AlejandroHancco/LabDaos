@@ -1,9 +1,10 @@
 
 <%@ page import="java.util.ArrayList" %>
-
-<%@ page import="com.example.demo.Beans.Partido" %>
+<%@ page import="com.example.demo.Beans.Arbitro" %>
+<%@ page import="com.example.demo.Beans.Jugador" %>
+<%@ page import="com.example.demo.Beans.Estadio" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%ArrayList<Partido>lista=(ArrayList<Partido>) request.getAttribute("listarPartidos");%>
+<%ArrayList<Estadio>lista=(ArrayList<Estadio>) request.getAttribute("listarEstadios");%>
 <!DOCTYPE html>
 
 <html>
@@ -17,34 +18,38 @@
         <div class='container'>
             <div class="row mb-5 mt-4">
                 <div class="col-lg-6">
-                    <h1 class=''>Lista de Partidos</h1>
+                    <h1 class=''>Lista de Estadios</h1>
                 </div>
                 <div class="col-lg-6 my-auto text-lg-right">
-                    <a href="<%= request.getContextPath()%>/PartidoServlet?action=crear" class="btn btn-primary">Crear
-                        Partido</a>
+                    <a href="<%= request.getContextPath()%>/EstadioServlet?action=crear" class="btn btn-primary">Crear
+                        Estadio</a>
                 </div>
+
             </div>
             <table class="table">
 
                 <tr>
                     <th>#</th>
-                    <th>Jornada</th>
-                    <th>Fecha</th>
-                    <th>Seleccion Local</th>
-                    <th>Seleccion Visitante</th>
-                    <th>Estadio a jugar</th>
-                    <th>Árbitro</th>
+                    <th>Nombre</th>
+                    <th>Provincia</th>
+                    <th>Club</th>
+
+                    <th></th>
                 </tr>
 
-                    <% for (Partido partido : lista){ %>
+                    <% for (Estadio estadio : lista){ %>
                 <tr>
-                    <td><%=partido.getIdPartido()%></td>
-                    <td><%=partido.getNumeroJornada()%></td>
-                    <td><%=partido.getFecha()%></td>
-                    <td><%=partido.getSeleccionLocal().getNombre()%></td>
-                    <td><%=partido.getSeleccionVisitante().getNombre()%></td>
-                    <td><%=partido.getSeleccionLocal().getEstadio().getNombre()%></td>
-                    <td><%=partido.getArbitro().getNombre()%></td>
+                    <td><%=estadio.getIdEstadio()%></td>
+                    <td><%=estadio.getNombre()%></td>
+                    <td><%=estadio.getProvincia()%></td>
+                    <td>
+                        <%= estadio.getClub() != null ? estadio.getClub() : "No tiene propietario" %>
+                    </td>
+                    <td>
+                        <a href="<%=request.getContextPath()%>/EstadioServlet?action=borrar&id=<%=estadio.getIdEstadio()%>">
+                            Borrar
+                        </a>
+                    </td>
                 </tr>
                 <%}%>
             </table>
